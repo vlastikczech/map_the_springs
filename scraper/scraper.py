@@ -1,11 +1,14 @@
 import urllib
 import requests
+import datetime
+import csv
 from bs4 import BeautifulSoup
 
 class Scraper(object):
 	def __init__(self, settings):
 		self.base_url = settings['base_url']
 		self.excludes = settings['excludes']
+		self.current_date = datetime.datetime.today()
 		self.gatherStateUrls(settings['states_list'])
 		self.buildSpringListByState()
 		self.produceCSV()
@@ -86,7 +89,7 @@ class Scraper(object):
 
 	def produceCSV(self):
 		header_row = "Title,URL,Lat,Long\n"
-		with open('output.csv', 'w', encoding="utf-8") as csv:
+		with open('../output/{0}_output.csv'.format(self.current_date.strftime('%m_%d_%Y')), 'w', encoding="utf-8") as csv:
 			csv.write(header_row)
 			for state, data in self.states_data.items():
 				for spring in data['springs']:
@@ -96,4 +99,17 @@ class Scraper(object):
 					lon = spring['long']
 					line = ','.join([title,url,lat,lon])
 					csv.write("%s\n" % line)
+
+	def produceJson(self):
+		current_date = datetime.datetime.today()
+		reader = csv.reader(open('../output/{0}_output.csv'.format(current_date.strftime('%m_%d_%Y'))))
+
+		result = {}
+		for row in reader:
+			key = row[0]
+			if key in result:
+				# implement duplicate handling here, but we most likely won't encounter this
+				pass
+			result[key] = row[1:]
+		return result
 
