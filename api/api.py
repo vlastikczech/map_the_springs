@@ -1,4 +1,5 @@
 import flask
+from flask_cors import CORS
 import sys
 sys.path.append('..\scraper')
 
@@ -7,15 +8,11 @@ from scraper import Scraper
 import settings
 
 app = flask.Flask(__name__)
+CORS(app)
 app.config["DEBUG"] = True
 app.config['UPLOAD_FOLDER'] = '../output'
 
 result = {}
-
-
-@app.route('/', methods=['GET'])
-def home():
-    return "<h1>Hot Springs</h1><p>This site is a prototype API for list of hot springs in the world.</p>"
 
 @app.route('/api/v1/resources/download', methods=['GET'])
 def download_c2v():
@@ -30,5 +27,9 @@ def generate_c2v():
 @app.route('/api/v1/resources/json', methods=['GET'])
 def produce_json():
         return Scraper.produceJson('')
+
+@app.route('/api/v1/resources/geojson', methods=['GET'])
+def produce_geojson():
+        return flask.jsonify(Scraper.produceGeoJsonFromCSV(''))
 
 app.run()

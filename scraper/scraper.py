@@ -2,6 +2,8 @@ import urllib
 import requests
 import datetime
 import csv
+import json
+from geojson import Feature, FeatureCollection, Point
 from bs4 import BeautifulSoup
 
 class Scraper(object):
@@ -113,3 +115,20 @@ class Scraper(object):
 			result[key] = row[1:]
 		return result
 
+	def produceGeoJsonFromCSV(self):
+		current_date = datetime.datetime.today()
+		features = []
+		with open('../output/{0}_output.csv'.format(current_date.strftime('%m_%d_%Y')), newline='') as csvfile:
+			reader = csv.reader(csvfile, delimiter=',')
+			next(reader)
+			for Title, Url, latitude, longitude, in reader:
+				features.append(
+					Feature(
+						geometry = Point([float(longitude), float(latitude)]),
+						properties = {
+							'title': Title,
+							'url': Url
+						}
+					)
+				)
+		return FeatureCollection(features)
