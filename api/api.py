@@ -32,4 +32,8 @@ def produce_json():
 def produce_geojson():
         return flask.jsonify(Scraper.produceGeoJsonFromCSV(''))
 
+@app.route('/api/v1/resources/csvjson', methods=['GET'])
+def produce_csvjson():
+        return Scraper.produceCSVJson('')
+
 app.run()

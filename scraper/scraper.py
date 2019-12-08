@@ -132,3 +132,20 @@ class Scraper(object):
 					)
 				)
 		return FeatureCollection(features)
+
+	def produceCSVJson(self):
+		current_date = datetime.datetime.today()
+		with open('../output/{0}_output.csv'.format(current_date.strftime('%m_%d_%Y'))) as csv_data:
+			reader = csv.reader(csv_data)
+
+			# eliminates blank rows if they don't exist
+			rows = [row for row in reader if row]
+			headings = rows[0] # get headings
+
+			springs_data = {}
+			for row in rows[1:]:
+				#append the dataitem to the end of the dictionary entry
+				#set the default value of [] of this key has not been seen
+				for col_header, data_column in zip(headings, row):
+					springs_data.setdefault(col_header, []).append(data_column)
+		return springs_data
