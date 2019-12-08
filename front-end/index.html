@@ -1,0 +1,82 @@
+<html lang="en">
+  <head>
+    <title>Icon Colors</title>
+    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+  
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <!-- Bootstrap row -->
+    <div class="row" id="body-row">
+      <!-- Sidebar -->
+      <div id="sidebar-container" class="sidebar-expanded d-none d-md-block"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+          <!-- Bootstrap List Group -->
+          <ul class="list-group">
+              <!-- Separator with title -->
+              <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                  <small>Hot Springs Map</small>
+              </li>
+              <!-- /END Separator -->
+              <!-- Menu with submenu -->
+              <a href="" data-toggle="collapse" aria-expanded="false" id="location" class="bg-light list-group-item list-group-item-action flex-column align-items-start" onclick="showMap()">
+                  <div class="d-flex w-100 justify-content-start align-items-center">
+                      <span class="fa fa-map-marker fa-fw mr-3"></span> 
+                      <span class="menu-collapsed">Locations</span>
+                  </div>
+              </a>
+              <a href="#table-menu" data-toggle="collapse" aria-expanded="false" class="bg-light list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-start align-items-center">
+                      <span class="fa fa-table fa-fw mr-3"></span>
+                      <span class="menu-collapsed">Table</span>
+                      <span class="submenu-icon ml-auto"></span>
+                  </div>
+              </a>
+              <!-- Submenu content -->
+              <div id='table-menu' class="collapse sidebar-submenu">
+                  <a href="#" class="list-group-item list-group-item-action bg-light" onclick="showTable()">
+                      <span class="fa fa-table fa-fw mr-3"></span>
+                      <span class="menu-collapsed">Display</span>
+                  </a>
+                  <a href="http://localhost:5000/api/v1/resources/download" class="list-group-item list-group-item-action bg-light">
+                      <span class="fa fa-download fa-fw mr-3"></span>
+                      <span class="menu-collapsed">Download</span>
+                  </a>
+              </div>            
+          </ul><!-- List Group END-->
+      </div><!-- sidebar-container END -->
+
+      <!-- MAIN -->
+      <div class="col bg-dark" id="body-col">
+        <div id="map" class="map"></div>
+        <div id="popup" class="ol-popup">
+            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+            <div id="popup-content"></div>
+        </div>
+        <table id="table_id" class="display">
+          <tbody id="table_body"></tbody>
+        </table>
+      </div><!-- Main Col END -->
+      
+    </div><!-- body-row END -->
+  </body>
+
+  <script>
+    function showMap() {
+      document.getElementById('map').style.display = 'block';
+      document.getElementById('table_id_wrapper').style.display = 'none';
+    }
+    function showTable() {
+      document.getElementById('map').style.display = 'none';
+      document.getElementById('table_id_wrapper').style.display = 'block';
+    }
+  </script>
+</html>
