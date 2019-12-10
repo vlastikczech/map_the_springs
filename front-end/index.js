@@ -10,12 +10,12 @@ import VectorSource from 'ol/source/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
 import XYZ from 'ol/source/XYZ';
 
-let url = 'http://127.0.0.1:5000/api/v1/resources/json'
+let url = 'http://localhost:5000/api/v1/resources/json'
 fetch(url).then(function(response) {
     return response.json();
   }).then(function(data) {
 
-      fetch('http://127.0.0.1:5000/api/v1/resources/geojson').then(function(response) {
+      fetch('http://localhost:5000/api/v1/resources/geojson').then(function(response) {
       return response.json();
     }).then(function(data) {
 
@@ -116,7 +116,7 @@ fetch(url).then(function(response) {
     console.log(error);
 });
 
-fetch('http://127.0.0.1:5000/api/v1/resources/csvjson').then(function(response) {
+fetch('http://localhost:5000/api/v1/resources/csvjson').then(function(response) {
     return response.json();
 }).then(function(data) {
   //Getting all the column names
