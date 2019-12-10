@@ -140,7 +140,9 @@ fetch('http://127.0.0.1:5000/api/v1/resources/csvjson').then(function(response) 
     $('#table_body').prepend(row);
   }
 
-  $('#table_id').DataTable();
+  $('#table_id').DataTable({
+    responsive: true
+  });
 })
 
 function Headers(list, selector) { 
