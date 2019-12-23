@@ -17,7 +17,7 @@ result = {}
 @app.route('/api/v1/resources/download', methods=['GET'])
 def download_c2v():
         return flask.send_from_directory(app.config['UPLOAD_FOLDER'] ,
-                               '10_12_2019_output.csv', as_attachment=True)
+                               'output.csv', as_attachment=True)
 
 @app.route('/api/v1/resources/generate', methods=['GET'])
 def generate_c2v():

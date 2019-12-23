@@ -1,6 +1,5 @@
 import urllib
 import requests
-import datetime
 import csv
 import json
 from geojson import Feature, FeatureCollection, Point
@@ -10,7 +9,6 @@ class Scraper(object):
 	def __init__(self, settings):
 		self.base_url = settings['base_url']
 		self.excludes = settings['excludes']
-		self.current_date = datetime.datetime.today()
 		self.gatherStateUrls(settings['states_list'])
 		self.buildSpringListByState()
 		self.produceCSV()
@@ -91,7 +89,7 @@ class Scraper(object):
 
 	def produceCSV(self):
 		header_row = "Title,URL,Lat,Long\n"
-		with open('../output/{0}_output.csv'.format(self.current_date.strftime('%m_%d_%Y')), 'w', encoding="utf-8") as csv:
+		with open('../output/output.csv', 'w', encoding="utf-8") as csv:
 			csv.write(header_row)
 			for state, data in self.states_data.items():
 				for spring in data['springs']:
@@ -103,8 +101,7 @@ class Scraper(object):
 					csv.write("%s\n" % line)
 
 	def produceJson(self):
-		current_date = datetime.datetime.today()
-		reader = csv.reader(open('../output/{0}_output.csv'.format(current_date.strftime('%m_%d_%Y'))))
+		reader = csv.reader(open('../output/output.csv'))
 
 		result = {}
 		for row in reader:
@@ -116,9 +113,8 @@ class Scraper(object):
 		return result
 
 	def produceGeoJsonFromCSV(self):
-		current_date = datetime.datetime.today()
 		features = []
-		with open('../output/{0}_output.csv'.format(current_date.strftime('%m_%d_%Y')), newline='') as csvfile:
+		with open('../output/output.csv', newline='') as csvfile:
 			reader = csv.reader(csvfile, delimiter=',')
 			next(reader)
 			for Title, Url, latitude, longitude, in reader:
@@ -134,8 +130,7 @@ class Scraper(object):
 		return FeatureCollection(features)
 
 	def produceCSVJson(self):
-		current_date = datetime.datetime.today()
-		with open('../output/{0}_output.csv'.format(current_date.strftime('%m_%d_%Y'))) as csv_data:
+		with open('../output/output.csv') as csv_data:
 			reader = csv.reader(csv_data)
 
 			# eliminates blank rows if they don't exist
