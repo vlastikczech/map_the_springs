@@ -1,5 +1,5 @@
 # map_the_springs
-### Map some hot springs UI
+### Map the hot springs UI
 ![hot springs ui](https://i.ibb.co/WvH7jSZ/hotspring.jpg)
 
 ### popup feature
