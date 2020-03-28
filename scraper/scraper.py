@@ -89,7 +89,7 @@ class Scraper(object):
 
 	def produceCSV(self):
 		header_row = "Title,URL,Lat,Long\n"
-		with open('../output/output.csv', 'w', encoding="utf-8") as csv:
+		with open('./output/output.csv', 'w', encoding="utf-8") as csv:
 			csv.write(header_row)
 			for state, data in self.states_data.items():
 				for spring in data['springs']:
@@ -101,7 +101,7 @@ class Scraper(object):
 					csv.write("%s\n" % line)
 
 	def produceJson(self):
-		reader = csv.reader(open('../output/output.csv'))
+		reader = csv.reader(open('./output/output.csv'))
 
 		result = {}
 		for row in reader:
@@ -114,7 +114,7 @@ class Scraper(object):
 
 	def produceGeoJsonFromCSV(self):
 		features = []
-		with open('../output/output.csv', newline='') as csvfile:
+		with open('./output/output.csv', newline='') as csvfile:
 			reader = csv.reader(csvfile, delimiter=',')
 			next(reader)
 			for Title, Url, latitude, longitude, in reader:
@@ -130,7 +130,7 @@ class Scraper(object):
 		return FeatureCollection(features)
 
 	def produceCSVJson(self):
-		with open('../output/output.csv') as csv_data:
+		with open('./output/output.csv') as csv_data:
 			reader = csv.reader(csv_data)
 
 			# eliminates blank rows if they don't exist

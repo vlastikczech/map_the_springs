@@ -2,13 +2,13 @@ import flask
 from flask_cors import CORS
 
 import scraper.scrape
-import scraper.scraper
-import scraper.settings
+from scraper.scraper import Scraper
+from scraper.settings import settings
 
 app = flask.Flask(__name__)
 CORS(app)
 app.config["DEBUG"] = True
-app.config['UPLOAD_FOLDER'] = '../output'
+app.config['UPLOAD_FOLDER'] = './output'
 
 result = {}
 
@@ -19,7 +19,7 @@ def download_c2v():
 
 @app.route('/api/v1/resources/generate', methods=['GET'])
 def generate_c2v():
-        scrape.Scraper(settings.settings)
+        Scraper(settings)
         return "success"
 
 @app.route('/api/v1/resources/json', methods=['GET'])
