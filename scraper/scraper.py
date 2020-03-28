@@ -2,6 +2,7 @@ import urllib
 import requests
 import csv
 import json
+from flask import jsonify
 from geojson import Feature, FeatureCollection, Point
 from bs4 import BeautifulSoup
 
@@ -101,16 +102,12 @@ class Scraper(object):
 					csv.write("%s\n" % line)
 
 	def produceJson(self):
-		reader = csv.reader(open('./output/output.csv'))
+		reader = csv.DictReader(open('./output/output.csv'))
 
-		result = {}
-		for row in reader:
-			key = row[0]
-			if key in result:
-				# implement duplicate handling here, but we most likely won't encounter this
-				pass
-			result[key] = row[1:]
-		return result
+		dict_list = []
+		for line in reader:
+			dict_list.append(line)
+		return jsonify({'springs': dict_list, 'success': 1})
 
 	def produceGeoJsonFromCSV(self):
 		features = []
