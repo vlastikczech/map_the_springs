@@ -13,9 +13,10 @@ https://i.gyazo.com/7f4534d918b1654f4dd6ed4de162fede.png)
 # Deps
 * python3x
 * requests (pip install requests)
-* beautifulsoup (pip install beautiful soup)
+* beautifulsoup (pip install beautifulsoup4)
 * geojson (pip install geojson)
 * flask (pip install flask)
+* cors (pip install flask_cors)
 
 # To run
 
