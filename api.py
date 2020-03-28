@@ -1,11 +1,9 @@
 import flask
 from flask_cors import CORS
-import sys
-sys.path.append('..\scraper')
 
-import scrape
-from scraper import Scraper
-import settings
+import scraper.scrape
+import scraper.scraper
+import scraper.settings
 
 app = flask.Flask(__name__)
 CORS(app)
@@ -36,4 +34,6 @@ def produce_geojson():
 def produce_csvjson():
         return Scraper.produceCSVJson('')
 
-app.run()
+if __name__ == '__main__':
+    # Threaded option to enable multiple instances for multiple user access support
+    app.run(threaded=True, port=5000)

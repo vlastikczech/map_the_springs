@@ -1,5 +1,6 @@
-from settings import settings
-from scraper import Scraper
+
+from .settings import settings
+from .scraper import Scraper
 
 if __name__ == "__main__":
 	scraper = Scraper(settings)
