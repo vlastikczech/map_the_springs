@@ -107,7 +107,7 @@ class Scraper(object):
 		dict_list = []
 		for line in reader:
 			dict_list.append(line)
-		return jsonify({'springs': dict_list, 'success': 1})
+		return jsonify(dict_list)
 
 	def produceGeoJsonFromCSV(self):
 		features = []
