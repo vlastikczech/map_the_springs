@@ -1,14 +1,5 @@
 # map_the_springs
-### Map the hot springs UI
-![hot springs ui](https://i.ibb.co/WvH7jSZ/hotspring.jpg)
-
-### popup feature
-![hot spring popup](
-https://i.gyazo.com/34f640b3535a0945bff91b03b7d783eb.jpg)
-
-### hot springs table
-![csv table](
-https://i.gyazo.com/7f4534d918b1654f4dd6ed4de162fede.png)
+### Map the hot springs API
 
 # Deps
 * python3x
@@ -17,6 +8,7 @@ https://i.gyazo.com/7f4534d918b1654f4dd6ed4de162fede.png)
 * geojson (pip install geojson)
 * flask (pip install flask)
 * cors (pip install flask_cors)
+* flask RESTPlus (pip install flask_restx)
 
 # To run
 

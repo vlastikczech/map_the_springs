@@ -1,37 +1,55 @@
-import flask
+from flask import Flask, send_from_directory
+from flask_restx import Api, Resource, fields
 from flask_cors import CORS
 
 import scraper.scrape
 from scraper.scraper import Scraper
 from scraper.settings import settings
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
+api = Api(app, version='1.0', title='Map The Springs',
+description='Hot Springs API',
+)
 CORS(app)
 app.config["DEBUG"] = True
 app.config['UPLOAD_FOLDER'] = './output'
 
-result = {}
+# namespace appear under a given heading in Swagger
+name_space = api.namespace('', description='Hot Springs APIs')
 
-@app.route('/api/v1/resources/download', methods=['GET'])
-def download_c2v():
-        return flask.send_from_directory(app.config['UPLOAD_FOLDER'] ,
-                               'output.csv', as_attachment=True)
+@name_space.route("/api/v1/resources/download")
+class Download(Resource):
+    def get(self):
+        '''Downloads a csv file'''
+        return send_from_directory(app.config['UPLOAD_FOLDER'] ,
+                                'output.csv', as_attachment=True)
 
-@app.route('/api/v1/resources/generate', methods=['GET'])
-def generate_c2v():
+
+@name_space.route("/api/v1/resources/generate")
+class Generate(Resource):
+    def get(self):
+        '''Generates a csv file'''
         Scraper(settings)
-        return "success"
+        return {
+            "status": "200"
+        }
 
-@app.route('/api/v1/resources/json', methods=['GET'])
-def produce_json():
+@name_space.route("/api/v1/resources/json")
+class ProduceJson(Resource):
+    def get(self):
+        '''Returns a object list'''
         return Scraper.produceJson('')
+        
+@name_space.route("/api/v1/resources/geojson")
+class ProductGeoJson(Resource):
+    def get(self):
+        '''Returns a object list in geo format'''
+        return Scraper.produceGeoJsonFromCSV('')
 
-@app.route('/api/v1/resources/geojson', methods=['GET'])
-def produce_geojson():
-        return flask.jsonify(Scraper.produceGeoJsonFromCSV(''))
-
-@app.route('/api/v1/resources/csvjson', methods=['GET'])
-def produce_csvjson():
+@name_space.route("/api/v1/resources/csvjson")
+class ProduceCsvJson(Resource):
+    def get(self):
+        '''Returns a object list containing all the csv data'''
         return Scraper.produceCSVJson('')
 
 if __name__ == '__main__':

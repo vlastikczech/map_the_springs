@@ -2,7 +2,7 @@ import urllib
 import requests
 import csv
 import json
-from flask import jsonify
+from flask import jsonify, make_response
 from geojson import Feature, FeatureCollection, Point
 from bs4 import BeautifulSoup
 
@@ -107,7 +107,7 @@ class Scraper(object):
 		dict_list = []
 		for line in reader:
 			dict_list.append(line)
-		return jsonify(dict_list)
+		return make_response(jsonify(dict_list), 200)
 
 	def produceGeoJsonFromCSV(self):
 		features = []
@@ -124,7 +124,7 @@ class Scraper(object):
 						}
 					)
 				)
-		return FeatureCollection(features)
+		return make_response(jsonify(FeatureCollection(features)), 200)
 
 	def produceCSVJson(self):
 		with open('./output/output.csv') as csv_data:
@@ -140,4 +140,4 @@ class Scraper(object):
 				#set the default value of [] of this key has not been seen
 				for col_header, data_column in zip(headings, row):
 					springs_data.setdefault(col_header, []).append(data_column)
-		return springs_data
+		return make_response(jsonify(springs_data), 200)
