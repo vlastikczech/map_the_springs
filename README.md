@@ -1,5 +1,6 @@
 # map_the_springs
 ### Map the hot springs API
+![hot springs api](https://i.imgur.com/T6WhJCC.png)
 
 # Deps
 * python3x
